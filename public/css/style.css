@@ -131,40 +131,31 @@ body {
 /* Estilos da tabela */
 .table {
   width: 100%;
-  margin-bottom: 1rem;
-  color: #212529;
+  margin: 20px 0;
+  border-collapse: collapse;
 }
 
-.table th,
-.table td {
-  padding: 0.75rem;
-  vertical-align: top;
-  border-top: 1px solid #dee2e6;
+.table th, .table td {
+  border: 1px solid #ddd;
+  padding: 8px;
 }
 
-.table thead th {
-  vertical-align: bottom;
-  border-bottom: 2px solid #dee2e6;
+.table th {
+  background-color: #f2f2f2;
+  text-align: left;
 }
 
-.table tbody + tbody {
-  border-top: 2px solid #dee2e6;
+.table tr:nth-child(even) {
+  background-color: #f9f9f9;
 }
 
-.table-bordered {
-  border: 1px solid #dee2e6;
+.table tr:hover {
+  background-color: #ddd;
 }
 
-.table-bordered th,
-.table-bordered td {
-  border: 1px solid #dee2e6;
-}
-
-.table-bordered thead th,
-.table-bordered thead td {
-  border-bottom-width: 2px;
-}
-
-.table-striped tbody tr:nth-of-type(odd) {
-  background-color: rgba(0, 0, 0, 0.05);
+.table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  background-color: #4CAF50;
+  color: white;
 }

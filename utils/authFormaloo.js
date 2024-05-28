@@ -1,4 +1,3 @@
-// utils/authFormaloo.js
 const axios = require('axios');
 
 const getAuthorizationToken = async () => {

@@ -1,4 +1,3 @@
-// controllers/taskController.js
 const axios = require('axios');
 const { getAuthorizationToken } = require('../utils/authFormaloo');
 
@@ -9,7 +8,7 @@ exports.getTasks = async (req, res) => {
     let authorizationToken = await getAuthorizationToken();
 
     let tasks = [];
-    let nextUrl = 'https://api.formaloo.net/v3/forms/m3fK0cg3/rows';
+    let nextUrl = 'https://api.formaloo.net/v3/forms/m3fK0cg3/rows?page_size=100'; // Ajustar o tamanho da página para 100 ou o máximo permitido pela API
     
     while (nextUrl) {
       try {
