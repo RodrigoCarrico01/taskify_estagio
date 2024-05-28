@@ -9,7 +9,7 @@ exports.getTasks = async (req, res) => {
   try {
     let authorizationToken = await getAuthorizationToken();
     let tasks = [];
-    let nextUrl = `https://api.formaloo.net/v3/forms/m3fK0cg3/rows?page_size=max`;
+    let nextUrl = `https://api.formaloo.net/v3/forms/m3fK0cg3/rows?page_size=999`;
 
     while (nextUrl) {
       try {
