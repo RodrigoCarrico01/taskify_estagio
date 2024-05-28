@@ -30,7 +30,7 @@ exports.sendMagicLink = async (req, res) => {
 
   try {
     await sendSignInLinkToEmail(auth, email, actionCodeSettings);
-    res.status(200).send('Magic link sent to email.');
+    res.status(200).send('Link mágico enviado para o email.');
   } catch (error) {
     res.status(400).send(error.message);
   }
@@ -58,7 +58,7 @@ exports.verifyMagicLink = async (req, res) => {
 
       res.redirect('/profile');
     } else {
-      res.status(400).send('Invalid sign-in link.');
+      res.status(400).send('Link de login inválido.');
     }
   } catch (error) {
     res.status(400).send(error.message);
@@ -68,24 +68,4 @@ exports.verifyMagicLink = async (req, res) => {
 exports.logout = (req, res) => {
   res.clearCookie('session');
   res.redirect('/');
-};
-
-exports.getProfile = async (req, res) => {
-  try {
-    const user = await admin.auth().getUser(req.user.uid);
-    res.render('profile', { user });
-  } catch (error) {
-    res.status(400).send(error.message);
-  }
-};
-
-exports.updateDisplayName = async (req, res) => {
-  try {
-    const { displayName } = req.body;
-    const user = await admin.auth().getUser(req.user.uid);
-    await admin.auth().updateUser(user.uid, { displayName });
-    res.redirect('/profile');
-  } catch (error) {
-    res.status(400).send(error.message);
-  }
 };

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Tarefas</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/css/style.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <%- include('partials/navbar') %>
+  <div id="main" class="tasks-container">
+    <h1>Tarefas Submetidas</h1>
+    <ul class="list-group">
+      <% tasks.forEach(task => { %>
+        <li class="list-group-item">
+          <h5>ID da Tarefa: <%= task.rendered_data.uwQfBFVs.value %></h5>
+          <p>Email: <%= task.rendered_data.pMymcHDh.value %></p>
+          <p>Data: <%= task.rendered_data['6S3ZodpU'].value %></p>
+          <p>Tempo: <%= task.rendered_data.xWJE73P0.value %> minutos</p>
+          <p>Descrição: <%= task.rendered_data.Fkgzk9s2.value %></p>
+        </li>
+      <% }) %>
+    </ul>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

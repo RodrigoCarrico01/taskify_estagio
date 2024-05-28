@@ -7,6 +7,8 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const authRoutes = require('./routes/authRoutes');
+const profileRoutes = require('./routes/profileRoutes');
+const taskRoutes = require('./routes/taskRoutes');
 
 const app = express();
 
@@ -16,6 +18,8 @@ app.use(cookieParser());
 app.use(express.static('public'));
 
 app.use('/', authRoutes);
+app.use('/', profileRoutes);
+app.use('/', taskRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
