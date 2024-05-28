@@ -11,17 +11,38 @@
   <%- include('partials/navbar') %>
   <div id="main" class="tasks-container">
     <h1>Tarefas Submetidas</h1>
-    <ul class="list-group">
-      <% tasks.forEach(task => { %>
-        <li class="list-group-item">
-          <h5>ID da Tarefa: <%= task.rendered_data.uwQfBFVs.value %></h5>
-          <p>Email: <%= task.rendered_data.pMymcHDh.value %></p>
-          <p>Data: <%= task.rendered_data['6S3ZodpU'].value %></p>
-          <p>Tempo: <%= task.rendered_data.xWJE73P0.value %> minutos</p>
-          <p>Descrição: <%= task.rendered_data.Fkgzk9s2.value %></p>
-        </li>
-      <% }) %>
-    </ul>
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th>ID da Tarefa</th>
+          <th>Email</th>
+          <th>Data</th>
+          <th>Tempo (minutos)</th>
+          <th>Descrição</th>
+          <th>Anexos</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% tasks.forEach(task => { %>
+          <tr>
+            <td><%= task.rendered_data.uwQfBFVs.value %></td>
+            <td><%= task.rendered_data.pMymcHDh.value %></td>
+            <td><%= task.rendered_data['6S3ZodpU'].value %></td>
+            <td><%= task.rendered_data.xWJE73P0.value %></td>
+            <td><%= task.rendered_data.Fkgzk9s2.value %></td>
+            <td>
+              <ul>
+                <% ['zHJ08uHz', 'eRv22zzj', 'xfCb1Den', '82P5aHnp', 'aoDSWJnM'].forEach(anexo => { %>
+                  <% if (task.rendered_data[anexo] && task.rendered_data[anexo].value) { %>
+                    <li><a href="<%= task.rendered_data[anexo].value %>">Anexo <%= anexo %></a></li>
+                  <% } %>
+                <% }) %>
+              </ul>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
   </div>
 
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
