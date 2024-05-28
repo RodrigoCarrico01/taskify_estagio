@@ -13,5 +13,6 @@ router.get('/auth/verify', authController.verifyMagicLink);
 router.get('/logout', authController.logout);
 
 router.get('/profile', authMiddleware.isAuthenticated, authController.getProfile);
+router.post('/profile/update', authMiddleware.isAuthenticated, authController.updateDisplayName);
 
 module.exports = router;

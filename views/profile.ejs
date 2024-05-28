@@ -1,20 +1,46 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Profile</title>
+  <title>Perfil</title>
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/css/style.css" rel="stylesheet">
 </head>
 <body>
   <%- include('partials/navbar') %>
-  <div class="container mt-5">
-    <h1>Profile</h1>
-    <p>Welcome, <%= user.email %>!</p>
-    <p>Your UID: <%= user.uid %></p>
-    <p>Email verified: <%= user.emailVerified %></p>
-    <p>Display name: <%= user.displayName %></p>
+  <div id="main" class="profile-container">
+    <h1>Perfil</h1>
+    <img src="/img/profile.jpg" alt="Foto de Perfil" class="img-thumbnail">
+    <p>Bem-vindo, <%= user.email %>!</p>
+    <p>Seu UID: <%= user.uid %></p>
+    <p>Email verificado: <%= user.emailVerified %></p>
+    <p>Nome de exibição: <%= user.displayName %></p>
+    <button class="btn btn-primary" onclick="document.getElementById('displayNameModal').style.display='block'">Alterar Nome de Exibição</button>
   </div>
+
+  <div id="displayNameModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="document.getElementById('displayNameModal').style.display='none'">&times;</span>
+      <h2>Alterar Nome de Exibição</h2>
+      <form action="/profile/update" method="POST">
+        <div class="form-group">
+          <label for="displayName">Novo Nome de Exibição:</label>
+          <input type="text" name="displayName" class="form-control" value="<%= user.displayName %>" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Atualizar Nome de Exibição</button>
+      </form>
+    </div>
+  </div>
+
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    var modal = document.getElementById('displayNameModal');
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+  </script>
 </body>
 </html>

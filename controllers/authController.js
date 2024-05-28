@@ -1,6 +1,6 @@
 // controllers/authController.js
 const { initializeApp, getApps } = require('firebase/app');
-const { getAuth, sendSignInLinkToEmail, isSignInWithEmailLink, signInWithEmailLink } = require('firebase/auth');
+const { getAuth, sendSignInLinkToEmail, isSignInWithEmailLink, signInWithEmailLink, updateProfile } = require('firebase/auth');
 const admin = require('../config/firebase');
 
 // Configurações do Firebase Client SDK
@@ -50,6 +50,12 @@ exports.verifyMagicLink = async (req, res) => {
       const sessionCookie = await admin.auth().createSessionCookie(token, { expiresIn });
       res.cookie('session', sessionCookie, { maxAge: expiresIn, httpOnly: true });
 
+      // Set default display name if not already set
+      if (!user.displayName) {
+        const displayName = email.split('@')[0];
+        await updateProfile(user, { displayName });
+      }
+
       res.redirect('/profile');
     } else {
       res.status(400).send('Invalid sign-in link.');
@@ -68,6 +74,17 @@ exports.getProfile = async (req, res) => {
   try {
     const user = await admin.auth().getUser(req.user.uid);
     res.render('profile', { user });
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+};
+
+exports.updateDisplayName = async (req, res) => {
+  try {
+    const { displayName } = req.body;
+    const user = await admin.auth().getUser(req.user.uid);
+    await admin.auth().updateUser(user.uid, { displayName });
+    res.redirect('/profile');
   } catch (error) {
     res.status(400).send(error.message);
   }

@@ -1,0 +1,129 @@
+/* public/css/style.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+/* Paleta de cores */
+.color1 { background-color: #f8f4c4; }
+.color2 { background-color: #d5e0b5; }
+.color3 { background-color: #a5c3a7; }
+.color4 { background-color: #6d8b89; }
+.color5 { background-color: #47667b; }
+
+/* Estilos globais */
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Navbar lateral */
+.navbar {
+  height: 100%;
+  width: 250px;
+  position: fixed;
+  top: 0;
+  left: -250px;
+  background-color: #47667b;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.navbar a {
+  padding: 10px 15px;
+  text-decoration: none;
+  font-size: 18px;
+  color: #f8f4c4;
+  display: block;
+  transition: 0.3s;
+}
+
+.navbar a:hover {
+  background-color: #6d8b89;
+}
+
+.navbar .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+#main {
+  transition: margin-left 0.5s;
+  padding: 16px;
+  margin-left: 0;
+}
+
+.openbtn {
+  font-size: 20px;
+  cursor: pointer;
+  background-color: #47667b;
+  color: #f8f4c4;
+  padding: 10px 15px;
+  border: none;
+}
+
+.openbtn:hover {
+  background-color: #6d8b89;
+}
+
+.navbar i {
+  margin-right: 10px;
+}
+
+/* Estilos de perfil */
+.profile-container {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.profile-container img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin-bottom: 20px;
+}
+
+.profile-container p {
+  font-size: 18px;
+}
+
+/* Modal */
+.modal {
+  display: none; 
+  position: fixed; 
+  z-index: 1; 
+  padding-top: 100px; 
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  overflow: auto; 
+  background-color: rgb(0,0,0); 
+  background-color: rgba(0,0,0,0.4); 
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 500px;
+  border-radius: 5px;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
