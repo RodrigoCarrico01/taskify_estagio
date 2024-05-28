@@ -1,5 +1,5 @@
 // controllers/authController.js
-const { initializeApp, getApps, getApp } = require('firebase/app');
+const { initializeApp, getApps } = require('firebase/app');
 const { getAuth, sendSignInLinkToEmail, isSignInWithEmailLink, signInWithEmailLink } = require('firebase/auth');
 const admin = require('../config/firebase');
 
@@ -37,7 +37,7 @@ exports.sendMagicLink = async (req, res) => {
 };
 
 exports.verifyMagicLink = async (req, res) => {
-  const { email, oobCode } = req.query;
+  const { email } = req.query;
 
   try {
     if (isSignInWithEmailLink(auth, req.url)) {
@@ -62,4 +62,13 @@ exports.verifyMagicLink = async (req, res) => {
 exports.logout = (req, res) => {
   res.clearCookie('session');
   res.redirect('/');
+};
+
+exports.getProfile = async (req, res) => {
+  try {
+    const user = await admin.auth().getUser(req.user.uid);
+    res.render('profile', { user });
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
 };

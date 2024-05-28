@@ -12,3 +12,11 @@ exports.isAuthenticated = async (req, res, next) => {
     res.redirect('/login');
   }
 };
+
+exports.isNotAuthenticated = (req, res, next) => {
+  const sessionCookie = req.cookies.session || '';
+  
+  admin.auth().verifySessionCookie(sessionCookie, true)
+    .then(() => res.redirect('/profile'))
+    .catch(() => next());
+};
