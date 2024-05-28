@@ -1,13 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login</title>
+  <title>Login</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <h1>Login</h1>
+  <div class="container">
+    <h1 class="mt-5">Login</h1>
     <form action="/login" method="POST">
-        <input type="email" name="email" placeholder="Enter your email" required>
-        <button type="submit">Send Magic Link</button>
+      <div class="form-group">
+        <input type="email" name="email" class="form-control" placeholder="Enter your email" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Send Magic Link</button>
     </form>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
