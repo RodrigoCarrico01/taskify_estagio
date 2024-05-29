@@ -1,3 +1,4 @@
+<!-- views/tasks.ejs -->
 <!DOCTYPE html>
 <html lang="pt">
 <head>
@@ -35,7 +36,7 @@
               <ul class="list-unstyled">
                 <% ['zHJ08uHz', 'eRv22zzj', 'xfCb1Den', '82P5aHnp', 'aoDSWJnM'].forEach(anexo => { %>
                   <% if (task.rendered_data[anexo] && task.rendered_data[anexo].value) { %>
-                    <li><a href="<%= task.rendered_data[anexo].value %>" target="_blank"><i class="fas fa-paperclip"></i> Anexo <%= anexo %></a></li>
+                    <li><a href="<%= task.rendered_data[anexo].value %>" target="_blank" download><i class="fas fa-paperclip"></i> Baixar Anexo <%= anexo %></a></li>
                   <% } %>
                 <% }) %>
               </ul>

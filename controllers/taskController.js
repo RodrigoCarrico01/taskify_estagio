@@ -41,6 +41,20 @@ exports.getTasks = async (req, res) => {
       }
     }
 
+    // Processando os dados dos anexos para garantir que a URL correta seja passada para a view
+    tasks = tasks.map(task => {
+      Object.keys(task.rendered_data).forEach(key => {
+        if (task.rendered_data[key] && typeof task.rendered_data[key].value === 'string') {
+          // Extraindo a URL correta se o valor for um link HTML
+          const match = task.rendered_data[key].value.match(/href="([^"]*)"/);
+          if (match) {
+            task.rendered_data[key].value = match[1];
+          }
+        }
+      });
+      return task;
+    });
+
     const totalTasks = tasks.length;
     const totalPages = Math.ceil(totalTasks / itemsPerPage);
     const paginatedTasks = tasks.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
