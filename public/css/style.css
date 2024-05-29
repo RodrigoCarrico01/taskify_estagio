@@ -1,75 +1,97 @@
-/* public/css/style.css */
-
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
-
-/* Paleta de cores */
-.color1 { background-color: #f8f4c4; }
-.color2 { background-color: #d5e0b5; }
-.color3 { background-color: #a5c3a7; }
-.color4 { background-color: #6d8b89; }
-.color5 { background-color: #47667b; }
+:root {
+  --dark-blue: #283593;
+  --medium-blue: #303f9f;
+  --light-blue: #3949ab;
+  --very-light-blue: #3f51b5;
+  --soft-blue: #5c6bc0;
+  --pale-blue: #7986cb;
+  --white: #fff;
+  --black: #000;
+  --dark-gray: #212121;
+  --medium-gray: #424242;
+  --light-gray: #616161;
+  --lighter-gray: #9e9e9e;
+  --soft-gray: #bdbdbd;
+  --pale-gray: #eeeeee;
+  --ultra-light-gray: #f5f5f5;
+}
 
 /* Estilos globais */
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
+  background-color: var(--ultra-light-gray);
+  color: var(--dark-gray);
+  animation: fadeIn 1s ease-in-out;
 }
 
 /* Navbar lateral */
-.navbar {
+.sidebar {
   height: 100%;
-  width: 250px;
+  width: 0;  /* Sidebar oculto inicialmente */
   position: fixed;
+  z-index: 1;
   top: 0;
-  left: -250px;
-  background-color: #47667b;
-  overflow-x: hidden;
-  transition: 0.5s;
-  padding-top: 60px;
+  left: 0;
+  background-color: var(--medium-blue); /* Cor de fundo do sidebar */
+  overflow-x: hidden; /* Sem scroll horizontal */
+  transition: 0.5s;  /* Efeito de transição */
+  padding-top: 60px; /* Espaçamento superior */
 }
 
-.navbar a {
-  padding: 10px 15px;
+.sidebar a {
+  padding: 10px 20px;
   text-decoration: none;
-  font-size: 18px;
-  color: #f8f4c4;
+  font-size: 25px;
+  color: var(--white);
   display: block;
   transition: 0.3s;
 }
 
-.navbar a:hover {
-  background-color: #6d8b89;
+.sidebar a:hover {
+  color: var(--black);
+  background-color: var(--soft-blue);
 }
 
-.navbar .closebtn {
+.sidebar a.logout-link {
   position: absolute;
+  bottom: 20px;
+  width: 100%;
+  padding: 10px 20px;
+  box-sizing: border-box;
+}
+
+/* Botão de menu */
+#menuButton {
+  position: fixed;
   top: 0;
-  right: 25px;
-  font-size: 36px;
-  margin-left: 50px;
-}
-
-#main {
-  transition: margin-left 0.5s;
-  padding: 16px;
-  margin-left: 0;
-}
-
-.openbtn {
-  font-size: 20px;
-  cursor: pointer;
-  background-color: #47667b;
-  color: #f8f4c4;
-  padding: 10px 15px;
+  left: 0;
+  background-color: var(--medium-blue);
   border: none;
+  color: var(--white);
+  padding: 20px;
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+  transition: background-color 0.3s, left 0.5s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  z-index: 1000;
+  border-radius: 0; /* Removendo qualquer arredondamento */
 }
 
-.openbtn:hover {
-  background-color: #6d8b89;
+#menuButton.open {
+  left: 250px;
 }
 
-.navbar i {
-  margin-right: 10px;
+#menuButton:hover {
+  background-color: var(--dark-blue);
+}
+
+#menuIcon {
+  font-size: 20px;
 }
 
 /* Estilos de perfil */
@@ -100,22 +122,21 @@ body {
   width: 100%; 
   height: 100%; 
   overflow: auto; 
-  background-color: rgb(0,0,0); 
-  background-color: rgba(0,0,0,0.4); 
+  background-color: rgba(0, 0, 0, 0.4); 
 }
 
 .modal-content {
-  background-color: #fefefe;
+  background-color: var(--white);
   margin: auto;
   padding: 20px;
-  border: 1px solid #888;
+  border: 1px solid var(--medium-gray);
   width: 80%;
   max-width: 500px;
   border-radius: 5px;
 }
 
 .close {
-  color: #aaa;
+  color: var(--medium-gray);
   float: right;
   font-size: 28px;
   font-weight: bold;
@@ -123,39 +144,36 @@ body {
 
 .close:hover,
 .close:focus {
-  color: black;
+  color: var(--black);
   text-decoration: none;
   cursor: pointer;
 }
 
-/* Estilos da tabela */
+/* Tabela */
 .table {
+  table-layout: fixed;
   width: 100%;
-  margin: 20px 0;
-  border-collapse: collapse;
 }
 
 .table th, .table td {
-  border: 1px solid #ddd;
-  padding: 8px;
+  text-align: center;
+  vertical-align: middle;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .table th {
-  background-color: #f2f2f2;
-  text-align: left;
+  background-color: var(--dark-blue);
+  color: var(--f8f4c4);
 }
 
-.table tr:nth-child(even) {
-  background-color: #f9f9f9;
+.table td {
+  word-wrap: break-word;
+  white-space: normal;
 }
 
-.table tr:hover {
-  background-color: #ddd;
-}
-
-.table th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  background-color: #4CAF50;
-  color: white;
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }

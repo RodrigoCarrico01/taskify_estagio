@@ -1,25 +1,9 @@
-<!-- views/partials/navbar.ejs -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<button id="menuButton" class="btn btn-primary" onclick="toggleNav()">
+  <i id="menuIcon" class="fas fa-bars"></i>
+</button>
 
-<div class="navbar color5" id="mySidebar">
-  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-  <a href="/profile"><i class="fas fa-user"></i> Profile</a>
-  <a href="/tasks">Tarefas</a>
-  <a href="/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+<div id="mySidebar" class="sidebar">
+  <a href="/profile"><i class="fas fa-user"></i> Perfil</a>
+  <a href="/tasks"><i class="fas fa-tasks"></i> Tarefas</a>
+  <a href="/logout" class="logout-link"><i class="fas fa-sign-out-alt"></i> Sair</a>
 </div>
-
-<div id="main">
-  <button class="openbtn" onclick="openNav()"><i class="fas fa-bars"></i> Menu</button>
-</div>
-
-<script>
-  function openNav() {
-    document.getElementById("mySidebar").style.left = "0";
-    document.getElementById("main").style.marginLeft = "250px";
-  }
-
-  function closeNav() {
-    document.getElementById("mySidebar").style.left = "-250px";
-    document.getElementById("main").style.marginLeft = "0";
-  }
-</script>
