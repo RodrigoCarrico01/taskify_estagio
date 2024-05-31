@@ -11,31 +11,51 @@
   <%- include('partials/navbar') %>
   <div class="container statistics-container">
     <h1>Estatísticas</h1>
-    <div class="stat">
-      <h2>Total de Minutos</h2>
-      <p id="totalMinutes" class="count" data-count="<%= statistics.totalMinutes %>">0</p>
-    </div>
-    <div class="stat">
-      <h2>Total de Anexos</h2>
-      <p id="totalAttachments" class="count" data-count="<%= statistics.totalAttachments %>">0</p>
+    <div class="stats-wrapper">
+      <div class="stat">
+        <h2>Total de Minutos</h2>
+        <p id="totalMinutes" class="count" data-count="<%= statistics.totalMinutes %>">0</p>
+      </div>
+      <div class="stat">
+        <h2>Total de Anexos</h2>
+        <p id="totalAttachments" class="count" data-count="<%= statistics.totalAttachments %>">0</p>
+      </div>
+      <div class="stat">
+        <h2>Total de Tarefas</h2>
+        <p id="totalTasks" class="count" data-count="<%= statistics.totalTasks %>">0</p>
+      </div>
     </div>
     <% if (isAdmin) { %>
       <form action="/statistics/user" method="POST" id="userSelectForm" class="mt-4">
         <div class="form-group">
           <label for="selectedUser">Selecione o Utilizador:</label>
-          <select class="form-control" id="selectedUser" name="selectedUser" onchange="document.getElementById('userSelectForm').submit()">
-            <option value="" disabled <%= !selectedUser ? 'selected' : '' %>>Selecione um utilizador</option>
+          <input list="users" id="selectedUser" name="selectedUser" class="form-control" onchange="document.getElementById('userSelectForm').submit()">
+          <datalist id="users">
             <% users.forEach(user => { %>
-              <option value="<%= user %>" <%= (selectedUser === user) ? 'selected' : '' %>><%= user %></option>
+              <option value="<%= user %>"><%= user %></option>
             <% }) %>
-          </select>
+          </datalist>
         </div>
       </form>
     <% } %>
   </div>
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script src="/js/script.js"></script>
+  <script>
+    $(document).ready(function() {
+      $('.count').each(function() {
+        var $this = $(this);
+        jQuery({ Counter: 0 }).animate({ Counter: $this.data('count') }, {
+          duration: 2000,
+          easing: 'swing',
+          step: function() {
+            $this.text(Math.ceil(this.Counter));
+          }
+        });
+      });
+    });
+  </script>
 </body>
 </html>

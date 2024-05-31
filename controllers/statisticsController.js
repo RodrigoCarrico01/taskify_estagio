@@ -3,10 +3,14 @@ const axios = require('axios');
 const { getAuthorizationToken } = require('../utils/authFormaloo');
 const admins = require('../config/admins.json').admins;
 
+const isInvalidEmail = (email) => {
+  return email.endsWith('@gmai.com');
+};
+
 exports.getStatistics = async (req, res) => {
   const apiKey = 'key_gAAAAABmBbnkRunYWIDY6NMDGwuLnQzbnSpyzXIT4-s_ASTHMFrQ1c_W1zB-EmW1vPX4MLy39kO7SQpOZHntlhjv-hojbGAfuWkgW5k6-7rYLio8dVyU5TpfXQskcQgOeAsk1sOikYQtsxVgwkrtY0iKsLkmX3Romw==';
   const userEmail = req.user.email;
-  let statistics = { totalMinutes: 0, totalAttachments: 0 };
+  let statistics = { totalMinutes: 0, totalAttachments: 0, totalTasks: 0 };
 
   try {
     let authorizationToken = await getAuthorizationToken();
@@ -36,11 +40,12 @@ exports.getStatistics = async (req, res) => {
 
     statistics.totalMinutes = tasks.reduce((sum, task) => sum + parseInt(task.rendered_data.xWJE73P0.value, 10), 0);
     statistics.totalAttachments = tasks.reduce((sum, task) => sum + ['zHJ08uHz', 'eRv22zzj', 'xfCb1Den', '82P5aHnp', 'aoDSWJnM'].filter(anexo => task.rendered_data[anexo] && task.rendered_data[anexo].value).length, 0);
+    statistics.totalTasks = tasks.length;
 
     // Obter lista de utilizadores para administradores
     let users = [];
     if (admins.includes(userEmail)) {
-      users = [...new Set(tasks.map(task => task.rendered_data.pMymcHDh.value))];
+      users = [...new Set(tasks.map(task => task.rendered_data.pMymcHDh.value).filter(email => !isInvalidEmail(email)))];
     }
 
     res.render('statistics', {
@@ -48,7 +53,7 @@ exports.getStatistics = async (req, res) => {
       isAdmin: admins.includes(userEmail),
       userEmail,
       users,
-      selectedUser: null // Definindo selectedUser como null na primeira renderização
+      selectedUser: req.body.selectedUser || null // Definindo selectedUser como null na primeira renderização
     });
   } catch (error) {
     res.status(400).send('Erro ao obter estatísticas: ' + error.message);
@@ -59,7 +64,7 @@ exports.getUserStatistics = async (req, res) => {
   const apiKey = 'key_gAAAAABmBbnkRunYWIDY6NMDGwuLnQzbnSpyzXIT4-s_ASTHMFrQ1c_W1zB-EmW1vPX4MLy39kO7SQpOZHntlhjv-hojbGAfuWkgW5k6-7rYLio8dVyU5TpfXQskcQgOeAsk1sOikYQtsxVgwkrtY0iKsLkmX3Romw==';
   const { selectedUser } = req.body;
   const currentUser = req.user.email;
-  let statistics = { totalMinutes: 0, totalAttachments: 0 };
+  let statistics = { totalMinutes: 0, totalAttachments: 0, totalTasks: 0 };
 
   try {
     let authorizationToken = await getAuthorizationToken();
@@ -89,6 +94,7 @@ exports.getUserStatistics = async (req, res) => {
 
     statistics.totalMinutes = tasks.reduce((sum, task) => sum + parseInt(task.rendered_data.xWJE73P0.value, 10), 0);
     statistics.totalAttachments = tasks.reduce((sum, task) => sum + ['zHJ08uHz', 'eRv22zzj', 'xfCb1Den', '82P5aHnp', 'aoDSWJnM'].filter(anexo => task.rendered_data[anexo] && task.rendered_data[anexo].value).length, 0);
+    statistics.totalTasks = tasks.length;
 
     // Obter lista de utilizadores para administradores
     let users = [];
@@ -115,7 +121,7 @@ exports.getUserStatistics = async (req, res) => {
           }
         }
       }
-      users = [...new Set(allTasks.map(task => task.rendered_data.pMymcHDh.value))];
+      users = [...new Set(allTasks.map(task => task.rendered_data.pMymcHDh.value).filter(email => !isInvalidEmail(email)))];
     }
 
     res.render('statistics', {
