@@ -28,15 +28,15 @@ body {
 /* Navbar lateral */
 .sidebar {
   height: 100%;
-  width: 0;  /* Sidebar oculto inicialmente */
+  width: 0;
   position: fixed;
   z-index: 1;
   top: 0;
   left: 0;
-  background-color: var(--medium-blue); /* Cor de fundo do sidebar */
-  overflow-x: hidden; /* Sem scroll horizontal */
-  transition: 0.5s;  /* Efeito de transição */
-  padding-top: 60px; /* Espaçamento superior */
+  background-color: var(--medium-blue);
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
 }
 
 .sidebar a {
@@ -79,7 +79,7 @@ body {
   justify-content: center;
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
   z-index: 1000;
-  border-radius: 0; /* Removendo qualquer arredondamento */
+  border-radius: 0;
 }
 
 #menuButton.open {
@@ -113,16 +113,16 @@ body {
 
 /* Modal */
 .modal {
-  display: none; 
-  position: fixed; 
-  z-index: 1; 
-  padding-top: 100px; 
+  display: none;
+  position: fixed;
+  z-index: 1;
+  padding-top: 100px;
   left: 0;
   top: 0;
-  width: 100%; 
-  height: 100%; 
-  overflow: auto; 
-  background-color: rgba(0, 0, 0, 0.4); 
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 .modal-content {
@@ -150,30 +150,114 @@ body {
 }
 
 /* Tabela */
-.table {
-  table-layout: fixed;
-  width: 100%;
+#searchForm {
+  margin-bottom: 20px;
 }
 
-.table th, .table td {
-  text-align: center;
-  vertical-align: middle;
+.input-group .form-control {
+  border-radius: 4px 0 0 4px;
+}
+
+.input-group .btn {
+  border-radius: 0 4px 4px 0;
+}
+
+.description {
+  max-width: 300px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.table th {
-  background-color: var(--dark-blue);
-  color: var(--f8f4c4);
+.table td, .table th {
+  vertical-align: middle;
+  text-align: center;
 }
 
-.table td {
-  word-wrap: break-word;
-  white-space: normal;
+.table .text-center a {
+  display: inline-block;
+  color: #007bff;
+}
+
+.table .text-center a:hover {
+  color: #0056b3;
+  text-decoration: none;
+}
+
+.table .text-center i {
+  font-size: 1.5em;
+}
+
+.table {
+  width: 100%;
+  table-layout: auto;
+}
+
+.table th, .table td {
+  padding: 15px;
+}
+
+.table th {
+  background-color: var(--dark-blue);
+  color: var(--white);
+}
+
+.task-container {
+  margin-top: 50px;
+  padding: 20px;
+  background-color: var(--white);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Títulos e textos */
+.task-container h1 {
+  font-size: 2.5em;
+  color: var(--dark-blue);
+  margin-bottom: 20px;
+}
+
+.task-container p {
+  font-size: 1.1em;
+  line-height: 1.5;
+  color: var(--dark-gray);
+}
+
+/* Botão de voltar */
+.task-container .btn-back {
+  margin-top: 20px;
+  background-color: var(--medium-blue);
+  color: var(--white);
+  border: none;
+  padding: 10px 20px;
+  font-size: 1em;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.task-container .btn-back:hover {
+  background-color: var(--dark-blue);
 }
 
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
+}
+
+/* Customizações adicionais */
+.icon-info {
+  color: var(--medium-blue);
+}
+
+.icon-info:hover {
+  color: var(--dark-blue);
+}
+
+.icon-check {
+  color: var(--green);
+}
+
+.icon-times {
+  color: var(--red);
 }
