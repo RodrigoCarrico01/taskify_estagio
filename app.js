@@ -10,6 +10,7 @@ dotenv.config();
 const authRoutes = require('./routes/authRoutes');
 const profileRoutes = require('./routes/profileRoutes');
 const taskRoutes = require('./routes/taskRoutes');
+const statisticsRoutes = require('./routes/statisticsRoutes');
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+app.use('/', statisticsRoutes);
 app.use('/', authRoutes);
 app.use('/', profileRoutes);
 app.use('/', taskRoutes);

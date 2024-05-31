@@ -261,3 +261,16 @@ body {
 .icon-times {
   color: var(--red);
 }
+.statistics-container {
+  margin-top: 50px;
+  text-align: center;
+}
+
+.statistics-container .stat {
+  margin-bottom: 20px;
+}
+
+.statistics-container .count {
+  font-size: 2.5em;
+  color: var(--medium-blue);
+}
