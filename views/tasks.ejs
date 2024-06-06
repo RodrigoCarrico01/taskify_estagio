@@ -19,6 +19,15 @@
           <button class="btn btn-outline-secondary" type="submit"><i class="fas fa-search"></i></button>
         </div>
       </div>
+      <div class="form-group">
+        <label for="dateFilter">Filtrar por data:</label>
+        <select class="form-control" id="dateFilter" name="dateFilter" onchange="document.getElementById('searchForm').submit()">
+          <option value="all" <%= dateFilter === 'all' ? 'selected' : '' %>>Tudo</option>
+          <option value="week" <%= dateFilter === 'week' ? 'selected' : '' %>>Esta semana</option>
+          <option value="month" <%= dateFilter === 'month' ? 'selected' : '' %>>Este mês</option>
+          <option value="year" <%= dateFilter === 'year' ? 'selected' : '' %>>Este ano</option>
+        </select>
+      </div>
     </form>
     <table class="table table-striped table-bordered table-hover">
       <thead class="thead-dark">
@@ -50,7 +59,7 @@
               <% } %>
             </td>
             <td class="text-center">
-              <a href="/tasks/details/<%= task.submit_code %>?query=<%= query %>" class="text-info"><i class="fas fa-info-circle icon-info"></i></a>
+              <a href="/tasks/details/<%= task.submit_code %>?query=<%= query %>&dateFilter=<%= dateFilter %>" class="text-info"><i class="fas fa-info-circle icon-info"></i></a>
             </td>
           </tr>
         <% }) %>
@@ -60,7 +69,7 @@
       <ul class="pagination justify-content-center">
         <% for (let i = 1; i <= totalPages; i++) { %>
           <li class="page-item <%= currentPage === i ? 'active' : '' %>">
-            <a class="page-link" href="?page=<%= i %>&query=<%= query %>"><%= i %></a>
+            <a class="page-link" href="?page=<%= i %>&query=<%= query %>&dateFilter=<%= dateFilter %>"><%= i %></a>
           </li>
         <% } %>
       </ul>

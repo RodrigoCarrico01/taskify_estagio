@@ -1,6 +1,24 @@
 const axios = require('axios');
 const { getAuthorizationToken } = require('../utils/authFormaloo');
 const admins = require('../config/admins.json').admins;
+const moment = require('moment'); // Adicionar a biblioteca moment.js para manipulação de datas
+
+const filterTasksByDate = (tasks, filter) => {
+  const now = moment();
+  return tasks.filter(task => {
+    const taskDate = moment(task.rendered_data['6S3ZodpU'].value, "DD-MM-YYYY"); // Garantir que a data seja interpretada corretamente
+    switch (filter) {
+      case 'week':
+        return taskDate.isSame(now, 'week');
+      case 'month':
+        return taskDate.isSame(now, 'month');
+      case 'year':
+        return taskDate.isSame(now, 'year');
+      default:
+        return true;
+    }
+  });
+};
 
 exports.getTasks = async (req, res) => {
   const apiKey = 'key_gAAAAABmBbnkRunYWIDY6NMDGwuLnQzbnSpyzXIT4-s_ASTHMFrQ1c_W1zB-EmW1vPX4MLy39kO7SQpOZHntlhjv-hojbGAfuWkgW5k6-7rYLio8dVyU5TpfXQskcQgOeAsk1sOikYQtsxVgwkrtY0iKsLkmX3Romw==';
@@ -8,6 +26,7 @@ exports.getTasks = async (req, res) => {
   const currentPage = parseInt(req.query.page) || 1;
   const userEmail = req.user.email;
   const query = req.query.query || '';
+  const dateFilter = req.query.dateFilter || 'all'; // Adicionar o filtro de data
 
   try {
     let authorizationToken = await getAuthorizationToken();
@@ -41,6 +60,12 @@ exports.getTasks = async (req, res) => {
       }
     }
 
+    // Filtrar tarefas pela data
+    tasks = filterTasksByDate(tasks, dateFilter);
+
+    // Ordenar tarefas das mais recentes para as mais antigas
+    tasks = tasks.sort((a, b) => moment(b.rendered_data['6S3ZodpU'].value, "DD-MM-YYYY") - moment(a.rendered_data['6S3ZodpU'].value, "DD-MM-YYYY"));
+
     // Processando os dados dos anexos para garantir que a URL correta seja passada para a view
     tasks = tasks.map(task => {
       Object.keys(task.rendered_data).forEach(key => {
@@ -63,12 +88,14 @@ exports.getTasks = async (req, res) => {
       tasks: paginatedTasks,
       currentPage,
       totalPages,
-      query
+      query,
+      dateFilter // Passar o filtro de data para a view
     });
   } catch (error) {
     res.status(400).send('Erro ao obter tarefas: ' + error.message);
   }
 };
+
 
 exports.getTaskDescription = async (req, res) => {
   const submitCode = req.params.submitCode; // Usar o submit_code único da tarefa
