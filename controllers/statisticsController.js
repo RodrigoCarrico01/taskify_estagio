@@ -1,10 +1,38 @@
-// controllers/statisticsController.js
 const axios = require('axios');
 const { getAuthorizationToken } = require('../utils/authFormaloo');
 const admins = require('../config/admins.json').admins;
 
 const isInvalidEmail = (email) => {
   return email.endsWith('@gmai.com');
+};
+
+const parseTime = (time) => {
+  if (!time) {
+    return 0;
+  }
+
+  if (!isNaN(time)) {
+    return parseInt(time, 10);
+  }
+
+  const timeRangeMatch = time.match(/(\d+):(\d+)-(\d+):(\d+)/g);
+  if (timeRangeMatch) {
+    return timeRangeMatch.reduce((totalMinutes, range) => {
+      const [startHour, startMinute, endHour, endMinute] = range.match(/(\d+):(\d+)-(\d+):(\d+)/).slice(1).map(Number);
+      const startTime = startHour * 60 + startMinute;
+      const endTime = endHour * 60 + endMinute;
+      return totalMinutes + (endTime - startTime);
+    }, 0);
+  }
+
+  return 0;
+};
+
+const sumTotalMinutes = (tasks) => {
+  return tasks.reduce((sum, task) => {
+    const timeValue = task.rendered_data.xWJE73P0.value;
+    return sum + parseTime(timeValue);
+  }, 0);
 };
 
 exports.getStatistics = async (req, res) => {
@@ -38,7 +66,7 @@ exports.getStatistics = async (req, res) => {
       }
     }
 
-    statistics.totalMinutes = tasks.reduce((sum, task) => sum + parseInt(task.rendered_data.xWJE73P0.value, 10), 0);
+    statistics.totalMinutes = sumTotalMinutes(tasks);
     statistics.totalAttachments = tasks.reduce((sum, task) => sum + ['zHJ08uHz', 'eRv22zzj', 'xfCb1Den', '82P5aHnp', 'aoDSWJnM'].filter(anexo => task.rendered_data[anexo] && task.rendered_data[anexo].value).length, 0);
     statistics.totalTasks = tasks.length;
 
@@ -92,7 +120,7 @@ exports.getUserStatistics = async (req, res) => {
       }
     }
 
-    statistics.totalMinutes = tasks.reduce((sum, task) => sum + parseInt(task.rendered_data.xWJE73P0.value, 10), 0);
+    statistics.totalMinutes = sumTotalMinutes(tasks);
     statistics.totalAttachments = tasks.reduce((sum, task) => sum + ['zHJ08uHz', 'eRv22zzj', 'xfCb1Den', '82P5aHnp', 'aoDSWJnM'].filter(anexo => task.rendered_data[anexo] && task.rendered_data[anexo].value).length, 0);
     statistics.totalTasks = tasks.length;
 
