@@ -6,28 +6,44 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <link href="/css/style.css" rel="stylesheet">
+  <link href="/css/taskDescription.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
   <%- include('partials/navbar') %>
   <div class="container task-container">
     <h1>Detalhes da Tarefa</h1>
-    <p><strong>ID da Tarefa:</strong> <%= task.rendered_data.uwQfBFVs.value %></p>
-    <p><strong>Email:</strong> <%= task.rendered_data.pMymcHDh.value %></p>
-    <p><strong>Data:</strong> <%= task.rendered_data['6S3ZodpU'].value %></p>
-    <p><strong>Tempo (minutos):</strong> <%= task.rendered_data.xWJE73P0.value %></p>
-    <p><strong>Descrição:</strong> <%= task.rendered_data.Fkgzk9s2.value %></p>
+    <div class="detail-item">
+      <strong>ID da Tarefa:</strong> <span><%= task.rendered_data.uwQfBFVs.value || "Vazio" %></span>
+    </div>
+    <div class="detail-item">
+      <strong>Email:</strong> <span><%= task.rendered_data.pMymcHDh.value || "Vazio" %></span>
+    </div>
+    <div class="detail-item">
+      <strong>Data:</strong> <span><%= task.rendered_data['6S3ZodpU'].value || "Vazio" %></span>
+    </div>
+    <div class="detail-item">
+      <strong>Tempo (minutos):</strong> <span><%= task.rendered_data.xWJE73P0.value || "Vazio" %></span>
+    </div>
+    <div class="detail-item">
+      <strong>Descrição:</strong> <span><%= task.rendered_data.Fkgzk9s2.value || "Vazio" %></span>
+    </div>
     <p><strong>Anexos:</strong></p>
     <ul>
-      <% anexos.forEach(anexo => { %>
-        <li><a href="<%= anexo %>" target="_blank"><i class="fas fa-paperclip"></i> Anexo</a></li>
-      <% }) %>
+      <% if (anexos.length > 0) { %>
+        <% anexos.forEach(anexo => { %>
+          <li><a href="<%= anexo %>" target="_blank"><i class="fas fa-paperclip"></i> Anexo</a></li>
+        <% }) %>
+      <% } else { %>
+        <li>Vazio</li>
+      <% } %>
     </ul>
-    <a href="/tasks" class="btn btn-back">Voltar</a>
+    <a href="/tasks" class="btn btn-back"><i class="fas fa-arrow-left"></i> Voltar</a>
   </div>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script src="/js/script.js"></script>
+  <script src="/js/taskDescription.js"></script>
 </body>
 </html>

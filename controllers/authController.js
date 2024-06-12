@@ -30,7 +30,7 @@ exports.sendMagicLink = async (req, res) => {
 
   try {
     await sendSignInLinkToEmail(auth, email, actionCodeSettings);
-    res.status(200).send('Link mágico enviado para o email.');
+    res.render('confirmation');
   } catch (error) {
     res.status(400).send(error.message);
   }
